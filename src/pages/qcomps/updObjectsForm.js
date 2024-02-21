@@ -8,20 +8,24 @@ export default function Scoreboard() {
   });
 
   function handlePlusClick() {
-    player.likescore++;
+    setPlayer(prevPlayer => ({
+      ...prevPlayer,
+      likescore: prevPlayer.likescore + 1, // Increment likescore immutably
+    }));
   }
 
   function handleFirstNameChange(e) {
-    setPlayer({
-      ...player,
-      firstName: e.target.value,
-    });
+    setPlayer(prevPlayer => ({
+      ...prevPlayer,
+      firstName: e.target.value, // Update firstName while preserving other properties
+    }));
   }
 
   function handleLastNameChange(e) {
-    setPlayer({
-      lastName: e.target.value
-    });
+    setPlayer(prevPlayer => ({
+      ...prevPlayer,
+      lastName: e.target.value, // Update lastName while preserving other properties
+    }));
   }
 
   return (
@@ -33,6 +37,7 @@ export default function Scoreboard() {
           +1
         </button>
       </label>
+      <br />
       <label>
         First name:
         <input
@@ -40,6 +45,7 @@ export default function Scoreboard() {
           onChange={handleFirstNameChange}
         />
       </label>
+      <br />
       <label>
         Last name:
         <input
