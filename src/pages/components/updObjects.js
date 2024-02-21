@@ -2,13 +2,13 @@ import { useState } from 'react';
 
 export default function Form() {
   const [person, setPerson] = useState({
-                                name: 'Niki de Saint Phalle',
-                                artwork: {
-                                  title: 'Blue Nana',
-                                  city: 'Hamburg',
-                                  image: 'https://i.imgur.com/Sd1AgUOm.jpg',
-                                }
-                              });
+    name: 'Ranjani Shettar',
+    artwork: {
+      title: 'Aureole',
+      city: 'Bangalore',
+      image: 'https://i.imgur.com/okTpbHhm.jpg',
+    }
+  });
 
   function handleCityChange(e) {
     const nextArtwork = { ...person.artwork, city: e.target.value };
@@ -19,6 +19,7 @@ export default function Form() {
 
   return (
     <>
+      <img src={person.artwork.image}/>
       <label>
         City:
         <input
