@@ -6,7 +6,9 @@ export default function Gallery() {
   const [showMore, setShowMore] = useState(false);
 
   function handleNextClick() {
-    setIndex(index + 1);
+    // Move to the next sculpture, or loop back to the first one if at the end of the list
+    const nextIndex = (index + 1) % sculptureList.length;
+    setIndex(nextIndex);
   }
 
   function handleMoreClick() {
@@ -27,7 +29,7 @@ export default function Gallery() {
         ({index + 1} of {sculptureList.length})
       </h3>
       <button onClick={handleMoreClick}>
-        {showMore ? 'Hide' : 'Show'} details
+        {showMore ? 'Hide' : 'Show'} Details
       </button>
       {showMore && <p>{sculpture.description}</p>}
       <img
