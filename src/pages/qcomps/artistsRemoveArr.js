@@ -1,31 +1,50 @@
 import { useState } from 'react';
 
-let initialArtists = [
-  { id: 0, name: 'Marta Colvin Andrade' },
-  { id: 1, name: 'Lamidi Olonade Fakeye'},
-  { id: 2, name: 'Louise Nevelson'},
-];
+export default function Scoreboard() {
+  const [player, setPlayer] = useState({
+    firstName: 'John Woodrow',
+    lastName: 'Wilson',
+    likescore: 10,
+  });
 
-export default function List() {
-  const [artists, setArtists] = useState(
-    initialArtists
-  );
+  function handlePlusClick() {
+    setPlayer(prevPlayer => ({
+      ...prevPlayer,
+      likescore: prevPlayer.likescore + 1,
+    }));
+  }
+
+  function handleFirstNameChange(e) {
+    setPlayer(prevPlayer => ({
+      ...prevPlayer,
+      firstName: e.target.value,
+    }));
+  }
+
+  function handleLastNameChange(e) {
+    setPlayer(prevPlayer => ({
+      ...prevPlayer,
+      lastName: e.target.value,
+    }));
+  }
 
   return (
     <>
-      <h1>Inspiring sculptors:</h1>
-      <ul>
-        {artists.map(artist => (
-          <li key={artist.id}>
-            {artist.name}{' '}
-            <button onClick={() => {
-              artists.splice(artist.id, 1)
-            }}>
-              Delete
-            </button>
-          </li>
-        ))}
-      </ul>
+      <label>
+        Like Score: <b>{player.likescore}</b>
+        {'  '}
+        <button onClick={handlePlusClick}>+1</button>
+      </label>
+      <br />
+      <label>
+        First name:
+        <input value={player.firstName} onChange={handleFirstNameChange} />
+      </label>
+      <br />
+      <label>
+        Last name:
+        <input value={player.lastName} onChange={handleLastNameChange} />
+      </label>
     </>
   );
 }
