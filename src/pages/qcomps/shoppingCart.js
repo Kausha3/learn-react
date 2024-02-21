@@ -5,10 +5,10 @@ export default function RequestTracker() {
   const [completed, setCompleted] = useState(0);
 
   async function handleClick() {
-    setPending(pending + 1);
-    await delay(3000);
-    setPending(pending - 1);
-    setCompleted(completed + 1);
+    setPending(prevPending => prevPending + 1); // Use functional update for pending
+    await delay(3000); // Wait for 3 seconds
+    setPending(prevPending => prevPending - 1); // Decrement pending using the latest state
+    setCompleted(prevCompleted => prevCompleted + 1); // Increment completed using the latest state
   }
 
   return (
@@ -27,7 +27,5 @@ export default function RequestTracker() {
 }
 
 function delay(ms) {
-  return new Promise(resolve => {
-    setTimeout(resolve, ms);
-  });
+  return new Promise(resolve => setTimeout(resolve, ms));
 }
