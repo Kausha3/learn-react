@@ -1,56 +1,47 @@
 import { useState } from 'react';
 
 export default function Scoreboard() {
-  const [player, setPlayer] = useState({
+  const [likeScore, setLikeScore] = useState(10);
+  const [playerInfo, setPlayerInfo] = useState({
     firstName: 'John Woodrow',
     lastName: 'Wilson',
-    likescore: 10,
   });
 
   function handlePlusClick() {
-    setPlayer(prevPlayer => ({
-      ...prevPlayer,
-      likescore: prevPlayer.likescore + 1, // Increment likescore immutably
-    }));
+    setLikeScore(prevScore => prevScore + 1);
   }
 
-  function handleFirstNameChange(e) {
-    setPlayer(prevPlayer => ({
-      ...prevPlayer,
-      firstName: e.target.value, // Update firstName while preserving other properties
-    }));
-  }
-
-  function handleLastNameChange(e) {
-    setPlayer(prevPlayer => ({
-      ...prevPlayer,
-      lastName: e.target.value, // Update lastName while preserving other properties
+  function handleInputChange(e) {
+    const { name, value } = e.target;
+    setPlayerInfo(prevInfo => ({
+      ...prevInfo,
+      [name]: value,
     }));
   }
 
   return (
     <>
       <label>
-        Like Score: <b>{player.likescore}</b>
+        Like Score: <b>{likeScore}</b>
         {'  '}
-        <button onClick={handlePlusClick}>
-          +1
-        </button>
+        <button onClick={handlePlusClick}>+1</button>
       </label>
       <br />
       <label>
         First name:
         <input
-          value={player.firstName}
-          onChange={handleFirstNameChange}
+          name="firstName"
+          value={playerInfo.firstName}
+          onChange={handleInputChange}
         />
       </label>
       <br />
       <label>
         Last name:
         <input
-          value={player.lastName}
-          onChange={handleLastNameChange}
+          name="lastName"
+          value={playerInfo.lastName}
+          onChange={handleInputChange}
         />
       </label>
     </>
