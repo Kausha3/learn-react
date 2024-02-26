@@ -7,43 +7,32 @@ export default function Scoreboard() {
     likescore: 10,
   });
 
-  function handlePlusClick() {
+  function handleInputChange(e) {
+    const { name, value } = e.target;
     setPlayer(prevPlayer => ({
       ...prevPlayer,
-      likescore: prevPlayer.likescore + 1,
+      [name]: name === 'likescore' ? parseInt(value, 10) : value,
     }));
   }
 
-  function handleFirstNameChange(e) {
-    setPlayer(prevPlayer => ({
-      ...prevPlayer,
-      firstName: e.target.value,
-    }));
-  }
-
-  function handleLastNameChange(e) {
-    setPlayer(prevPlayer => ({
-      ...prevPlayer,
-      lastName: e.target.value,
-    }));
-  }
+  const { firstName, lastName, likescore } = player; // Destructuring for clarity
 
   return (
     <>
       <label>
-        Like Score: <b>{player.likescore}</b>
+        Like Score: <b>{likescore}</b>
         {'  '}
-        <button onClick={handlePlusClick}>+1</button>
+        <button onClick={() => handleInputChange({ target: { name: 'likescore', value: likescore + 1 }})}>+1</button>
       </label>
       <br />
       <label>
         First name:
-        <input value={player.firstName} onChange={handleFirstNameChange} />
+        <input name="firstName" value={firstName} onChange={handleInputChange} />
       </label>
       <br />
       <label>
         Last name:
-        <input value={player.lastName} onChange={handleLastNameChange} />
+        <input name="lastName" value={lastName} onChange={handleInputChange} />
       </label>
     </>
   );
