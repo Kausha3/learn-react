@@ -7,30 +7,22 @@ const initialList = [
 ];
 
 export default function BucketList() {
-  const [myList, setMyList] = useState(JSON.parse(JSON.stringify(initialList)));
-  const [yourList, setYourList] = useState(JSON.parse(JSON.stringify(initialList)));
+  const [myList, setMyList] = useState([...initialList]);
+  const [yourList, setYourList] = useState([...initialList]);
 
-  function handleToggleMyList(artworkId, nextSeen) {
-    const updatedList = myList.map(artwork =>
+  function handleToggleList(setList, artworkId, nextSeen) {
+    setList(prevList => prevList.map(artwork =>
       artwork.id === artworkId ? { ...artwork, seen: nextSeen } : artwork
-    );
-    setMyList(updatedList);
-  }
-
-  function handleToggleYourList(artworkId, nextSeen) {
-    const updatedList = yourList.map(artwork =>
-      artwork.id === artworkId ? { ...artwork, seen: nextSeen } : artwork
-    );
-    setYourList(updatedList);
+    ));
   }
 
   return (
     <>
       <h1>Art Bucket List</h1>
       <h2>My list of art to see:</h2>
-      <ItemList artworks={myList} onToggle={handleToggleMyList} />
+      <ItemList artworks={myList} onToggle={(id, seen) => handleToggleList(setMyList, id, seen)} />
       <h2>Your list of art to see:</h2>
-      <ItemList artworks={yourList} onToggle={handleToggleYourList} />
+      <ItemList artworks={yourList} onToggle={(id, seen) => handleToggleList(setYourList, id, seen)} />
     </>
   );
 }
